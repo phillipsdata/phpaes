@@ -1,5 +1,5 @@
 <?php
-
+error_reporting(-1);
 require "./AES.class.php";
 
 
@@ -20,8 +20,11 @@ foreach ($modes as $mode) {
             $aes = new AES($key, $mode, $iv);
 
             $start = microtime(true);
-            $result = $aes->decrypt($aes->encrypt($data));
+            $cipherText = $aes->encrypt($data);
+            $result = $aes->decrypt($cipherText);
             echo "\n\nPlain-Text:\n" . $result . "\n";
+            echo "Cipher-Text (base64): "
+                . chunk_split(base64_encode($cipherText)) . "\n";
             $end = microtime(true);
 
             echo "\n\nExecution time: " . ($end - $start) . "\n";
