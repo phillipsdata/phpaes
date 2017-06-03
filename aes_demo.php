@@ -1,29 +1,35 @@
 <?php
 
-include("./AES.class.php");
+require "./AES.class.php";
 
-$z = "abcdefgh01234567"; // 128-bit key
-//$z = "abcdefghijkl012345678901"; // 192-bit key
-//$z = "abcdefghijuklmno0123456789012345"; // 256-bit key
 
 $iv = "1234567890abcdef"; // Initialization Vector (used in all modes except ECB
 
-// Supported modes are Electronic Codebook (ECB), Cipher Block Chaining (CBC), Cipher Feeback (CFB), Output Feedback (OFB)
-$aes = new AES($z, "OFB", $iv);
+$keys = array(
+    "abcdefgh01234567",
+    "abcdefghijkl012345678901",
+    "abcdefghijuklmno0123456789012345"
+);
+$modes = array("ECB", "CBC", "CFB", "OFB");
+$input = array(file_get_contents("./example.txt"), "hello world!", "");
 
-$data = file_get_contents("./example.txt");
+foreach ($modes as $mode) {
+    foreach ($keys as $key) {
+        foreach ($input as $data) {
+            echo "TEST [$mode]: z=$key\n";
+            $aes = new AES($key, $mode, $iv);
 
-$start = microtime(true);
-//echo "\n\nCipher-Text:\n" . $aes->encrypt($data) . "\n";
-$result = $aes->decrypt($aes->encrypt($data));
-echo "\n\nPlain-Text:\n" . $result . "\n";
-$end = microtime(true);
+            $start = microtime(true);
+            $result = $aes->decrypt($aes->encrypt($data));
+            echo "\n\nPlain-Text:\n" . $result . "\n";
+            $end = microtime(true);
 
-echo "\n\nExecution time: " . ($end - $start) . "\n";
+            echo "\n\nExecution time: " . ($end - $start) . "\n";
 
-if ($result === $data) {
-    exit(0);
+            if ($result !== $data) {
+                fwrite(STDERR, "[ERROR] Unexpected output\n");
+                exit(1);
+            }
+        }
+    }
 }
-
-fwrite(STDERR, "[ERROR] Unexpected output\n");
-exit(1);
