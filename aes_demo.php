@@ -19,5 +19,3 @@ echo "\n\nPlain-Text:\n" . $aes->decrypt($aes->encrypt($data)) . "\n";
 $end = microtime(true);
 
 echo "\n\nExecution time: " . ($end - $start);
-
-?>
