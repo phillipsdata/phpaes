@@ -15,7 +15,15 @@ $data = file_get_contents("./example.txt");
 
 $start = microtime(true);
 //echo "\n\nCipher-Text:\n" . $aes->encrypt($data) . "\n";
-echo "\n\nPlain-Text:\n" . $aes->decrypt($aes->encrypt($data)) . "\n";
+$result = $aes->decrypt($aes->encrypt($data));
+echo "\n\nPlain-Text:\n" . $result . "\n";
 $end = microtime(true);
 
-echo "\n\nExecution time: " . ($end - $start);
+echo "\n\nExecution time: " . ($end - $start) . "\n";
+
+if ($result === $data) {
+    exit(0);
+}
+
+fwrite(STDERR, "[ERROR] Unexpected output\n");
+exit(1);
