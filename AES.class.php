@@ -282,7 +282,7 @@ class AES {
     *   @returns plaintext string
     **/
     public function decrypt($y) {
-        $t = ''; // 16-byte block
+        $t = array(); // 16-byte block
         $x = ''; // returned plain text;
         $y_block = $this->iv;
         $x_block = '';
@@ -553,7 +553,7 @@ class AES {
     *   @returns void
     **/
     private function invShiftRows() {
-        $temp = '';
+        $temp = array();
         for ($i=1; $i<4; $i++) {
             for ($j=0; $j<self::$Nb; $j++) {
                 $temp[($i+$j)%self::$Nb] = $this->s[$i][$j];
