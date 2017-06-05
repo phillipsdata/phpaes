@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+    bootstrap="./vendor/autoload.php"
+    backupGlobals="false"
+    beStrictAboutTestsThatDoNotTestAnything="true"
+    checkForUnintentionallyCoveredCode="true"
+    forceCoversAnnotation="true"
+>
+    <testsuites>
+        <testsuite name="Unit">
+            <directory suffix="Test.php">tests/Unit</directory>
+        </testsuite>
+        <testsuite name="Integration">
+            <directory suffix="Test.php">tests/Integration</directory>
+        </testsuite>
+    </testsuites>
+
+    <filter>
+        <whitelist>
+            <directory suffix=".php">src/</directory>
+        </whitelist>
+    </filter>
+</phpunit>

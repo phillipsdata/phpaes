@@ -8,10 +8,10 @@
         "email": "cody@phillipsdata.com"
     }],
     "autoload": {
-        "psr-4": {"Phpaes\\": "src/"}
+        "psr-4": {"PhpAes\\": "src/"}
     },
     "autoload-dev": {
-        "psr-4": {"Phpaes\\Test\\": "tests/"}
+        "psr-4": {"PhpAes\\Test\\": "tests/"}
     },
     "require": {
         "php": ">=5.3"
