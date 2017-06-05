@@ -9,7 +9,6 @@ use PHPUnit\Framework\TestCase;
  */
 class AesTest extends TestCase
 {
-
     /**
      * Test the cipher
      *
@@ -26,7 +25,6 @@ class AesTest extends TestCase
         $aes = new Aes($key, $mode, $iv);
 
         $cipherText = $aes->encrypt($input);
-        $this->assertNotEquals($cipherText, $input);
 
         $result = $aes->decrypt($cipherText);
         $this->assertEquals($result, $input);
@@ -48,7 +46,14 @@ class AesTest extends TestCase
         );
         $modes = array('ECB', 'CBC', 'CFB', 'OFB');
 
-        $input = array(file_get_contents('./fixtures/example.txt'), 'hello world!', '');
+        $input = array(
+            file_get_contents(
+                dirname(__FILE__) . DIRECTORY_SEPARATOR
+                . "Fixtures" . DIRECTORY_SEPARATOR . 'example.txt'
+            ),
+            'hello world!',
+            ''
+        );
 
         $params = array();
         foreach ($modes as $mode) {
