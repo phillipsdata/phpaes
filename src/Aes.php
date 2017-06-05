@@ -284,9 +284,9 @@ class Aes
 
         switch ($this->mode) {
             case 'ECB':
-                for ($i=0; $i<$ysize; $i+=16) {
-                    for ($j=0; $j<16; $j++) {
-                        if (($i+$j)<$ysize) {
+                for ($i = 0; $i < $ysize; $i += 16) {
+                    for ($j = 0; $j < 16; $j++) {
+                        if (($i+$j) < $ysize) {
                             $t[$j] = $y[$i+$j];
                         } else {
                             $t[$j] = chr(0);

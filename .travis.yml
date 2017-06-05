@@ -11,5 +11,5 @@ php:
 before_script:
   - composer install --dev
 script:
-  - ./vendor/bin/phpunit --coverage-text
+  - ./vendor/bin/phpunit
   - ./vendor/bin/phpcs --extensions=php --report=summary --standard=PSR2 ./src ./tests
