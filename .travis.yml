@@ -8,5 +8,8 @@ php:
   - 7.0
   - 7.1
 
+before_script:
+  - composer install --dev
 script:
-  - php aes_demo.php
+  - ./vendor/bin/phpunit --coverage-text
+  - ./vendor/bin/phpcs --extensions=php --report=summary --standard=PSR2 ./src ./tests

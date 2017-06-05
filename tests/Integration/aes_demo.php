@@ -1,6 +1,6 @@
 <?php
 error_reporting(-1);
-require "./AES.class.php";
+require "./Aes.php";
 
 
 $iv = "1234567890abcdef"; // Initialization Vector (used in all modes except ECB

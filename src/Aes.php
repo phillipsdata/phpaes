@@ -1,24 +1,12 @@
 <?php
+namespace PhpAes;
+
 /*
-*  Author: Cody Phillips
-*  Company: Phillips Data
-*  Website: www.phpaes.com, www.phillipsdata.com
-*  File: AES.class.php
-*  August 4, 2008
-*
-*  This software is sold as-is without any warranties, expressed or implied,
-*  including but not limited to performance and/or merchantability. No
-*  warranty of fitness for a particular purpose is offered. This script can
-*  be used on as many servers as needed, as long as the servers are owned
-*  by the purchaser. (Contact us if you want to distribute it as part of
-*  another project) The purchaser cannot modify, rewrite, edit, or change any
-*  of this code and then resell it, which would be copyright infringement.
-*  This code can be modified for personal use only.
-*
-*  Comments, Questions? Contact the author at cody [at] phillipsdata [dot] com
+*  AES cipher
+ *
 */
 
-class AES {
+class Aes {
     // The number of 32-bit words comprising the plaintext and columns comrising the state matrix of an AES cipher.
     private static $Nb = 4;
     // The number of 32-bit words comprising the cipher key in this AES cipher.

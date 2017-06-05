@@ -1,0 +1,23 @@
+{
+    "name": "phpaes/phpaes",
+    "description": "AES cipher - FIPS 192 compliant",
+    "tags": ["encryption", "aes", "cipher"],
+    "license": "MIT",
+    "author": [{
+        "name": "Cody Phillips",
+        "email": "cody@phillipsdata.com"
+    }],
+    "autoload": {
+        "psr-4": {"Phpaes\\": "src/"}
+    },
+    "autoload-dev": {
+        "psr-4": {"Phpaes\\Test\\": "tests/"}
+    },
+    "require": {
+        "php": ">=5.3"
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "^3.0",
+        "phpunit/phpunit": "^6.2"
+    }
+}
