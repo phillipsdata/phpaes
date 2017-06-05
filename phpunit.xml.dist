@@ -3,7 +3,6 @@
     bootstrap="./vendor/autoload.php"
     backupGlobals="false"
     beStrictAboutTestsThatDoNotTestAnything="true"
-    checkForUnintentionallyCoveredCode="true"
     forceCoversAnnotation="true"
 >
     <testsuites>

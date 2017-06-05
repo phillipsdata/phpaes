@@ -2,12 +2,12 @@
 namespace PhpAes\Aes\Tests\Integration;
 
 use PhpAes\Aes;
-use PHPUnit\Framework\TestCase;
+use PHPUnit_Framework_TestCase;
 
 /**
  * @coversDefaultClass \PhpAes\Aes
  */
-class AesTest extends TestCase
+class AesTest extends PHPUnit_Framework_TestCase
 {
     /**
      * Test the cipher
