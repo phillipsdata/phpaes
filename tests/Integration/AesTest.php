@@ -19,6 +19,17 @@ class AesTest extends PHPUnit_Framework_TestCase
      * @dataProvider cipherProvider
      * @covers ::encrypt
      * @covers ::decrypt
+     * @covers ::invMixColumns
+     * @covers ::invShiftRows
+     * @covers ::invSubBytes
+     * @covers ::keyExpansion
+     * @covers ::make32BitWord
+     * @covers ::mixColumns
+     * @covers ::mult
+     * @covers ::rotWord
+     * @covers ::shiftRows
+     * @covers ::subBytes
+     * @covers ::subWord
      */
     public function testCipher($key, $mode, $iv, $input)
     {

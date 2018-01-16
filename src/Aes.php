@@ -1,11 +1,10 @@
 <?php
 namespace PhpAes;
 
-/*
-*  AES cipher
+/**
+ *  AES cipher
  *
-*/
-
+ */
 class Aes
 {
     // The number of 32-bit words comprising the plaintext and columns comrising the state matrix of an AES cipher.
@@ -169,8 +168,12 @@ class Aes
     private $iv;
 
 
-    /** constructs an AES cipher using a specific key.
-    */
+    /**
+     * Constructs an AES cipher using a specific key.
+     *
+     * @throws LengthException if the initialization vector or key is not the
+     *  appropriate length.
+     */
     public function __construct($z, $mode = 'ECB', $iv = null)
     {
         $this->mode = strtoupper($mode);
@@ -178,12 +181,16 @@ class Aes
         $this->Nk = strlen($z)/4;
         $this->Nr = $this->Nk + self::$Nb + 2;
 
-        if ($this->mode != "ECB" && strlen($this->iv) != 16) {
-            die('The initialization vector must be 128 bits (or 16 characters) long.');
+        if ($this->mode != 'ECB' && strlen($this->iv) != 16) {
+            throw new \LengthException(
+                'The initialization vector must be 128 bits (or 16 characters) long.'
+            );
         }
 
         if ($this->Nk != 4 && $this->Nk != 6 && $this->Nk != 8) {
-            die('Key is ' . ($this->Nk*32) . ' bits long. *not* 128, 192, or 256.');
+            throw new \LengthException(
+                'Key is ' . ($this->Nk*32) . ' bits long. *not* 128, 192, or 256.'
+            );
         }
 
         $this->Nr = $this->Nk+self::$Nb+2;
@@ -197,10 +204,11 @@ class Aes
         unset($this->s);
     }
 
-    /** Encrypts an aribtrary length String.
-    *   @params plaintext string
-    *   @returns ciphertext string
-    **/
+    /**
+     * Encrypts an aribtrary length String.
+     * @params plaintext string
+     * @returns ciphertext string
+     */
     public function encrypt($x)
     {
         $t = ''; // 16-byte block to hold the temporary input of the cipher
@@ -268,10 +276,11 @@ class Aes
         return $y;
     }
 
-    /** Decrypts an aribtrary length String.
-    *   @params ciphertext string
-    *   @returns plaintext string
-    **/
+    /**
+     * Decrypts an aribtrary length String.
+     * @params ciphertext string
+     * @returns plaintext string
+     */
     public function decrypt($y)
     {
         $t = array(); // 16-byte block
@@ -339,10 +348,11 @@ class Aes
         return rtrim($x, chr(0)); // Remove any buffer residue on return.
     }
 
-    /** Encrypts the 16-byte plain text.
-    *   @params 16-byte plaintext string
-    *   @returns 16-byte ciphertext string
-    **/
+    /**
+     * Encrypts the 16-byte plain text.
+     * @params 16-byte plaintext string
+     * @returns 16-byte ciphertext string
+     */
     public function encryptBlock($x)
     {
         $y = ''; // 16-byte string
@@ -386,10 +396,11 @@ class Aes
         return $y;
     }
 
-    /** Decrypts the 16-byte cipher text.
-    *   @params 16-byte ciphertext string
-    *   @returns 16-byte plaintext string
-    **/
+    /**
+     * Decrypts the 16-byte cipher text.
+     * @params 16-byte ciphertext string
+     * @returns 16-byte plaintext string
+     */
     public function decryptBlock($y)
     {
         $x = ''; // 16-byte string
@@ -434,9 +445,10 @@ class Aes
         return $x;
     }
 
-    /** makes a big key out of a small one
-    *   @returns void
-    **/
+    /**
+     * Makes a big key out of a small one
+     * @returns void
+     */
     private function keyExpansion($z)
     {
         // Rcon is the round constant
@@ -492,9 +504,10 @@ class Aes
         }
     }
 
-    /** adds the key schedule for a round to a state matrix.
-    *   @returns void
-    **/
+    /**
+     * Adds the key schedule for a round to a state matrix.
+     * @returns void
+     */
     private function addRoundKey($round)
     {
         $temp = '';
@@ -513,9 +526,10 @@ class Aes
         }
     }
 
-    /** unmixes each column of a state matrix.
-    *   @returns void
-    **/
+    /**
+     * Unmixes each column of a state matrix.
+     * @returns void
+     */
     private function invMixColumns()
     {
         $s0 = $s1 = $s2 = $s3= '';
@@ -546,9 +560,10 @@ class Aes
         }
     }
 
-    /** applies an inverse cyclic shift to the last 3 rows of a state matrix.
-    *   @returns void
-    **/
+    /**
+     * Applies an inverse cyclic shift to the last 3 rows of a state matrix.
+     * @returns void
+     */
     private function invShiftRows()
     {
         $temp = array();
@@ -562,9 +577,10 @@ class Aes
         }
     }
 
-    /** applies inverse S-Box substitution to each byte of a state matrix.
-    *   @returns void
-    **/
+    /**
+     * Applies inverse S-Box substitution to each byte of a state matrix.
+     * @returns void
+     */
     private function invSubBytes()
     {
         for ($i = 0; $i < 4; $i++) {
@@ -574,9 +590,10 @@ class Aes
         }
     }
 
-    /** mixes each column of a state matrix.
-    *   @returns void
-    **/
+    /**
+     * Mixes each column of a state matrix.
+     * @returns void
+     */
     private function mixColumns()
     {
         $s0 = $s1 = $s2 = $s3= '';
@@ -607,9 +624,10 @@ class Aes
         }
     }
 
-    /** applies a cyclic shift to the last 3 rows of a state matrix.
-    *   @returns void
-    **/
+    /**
+     * Applies a cyclic shift to the last 3 rows of a state matrix.
+     * @returns void
+     */
     private function shiftRows()
     {
         $temp = array();
@@ -622,9 +640,11 @@ class Aes
             }
         }
     }
-    /** applies S-Box substitution to each byte of a state matrix.
-    *   @returns void
-    **/
+
+    /**
+     * Applies S-Box substitution to each byte of a state matrix.
+     * @returns void
+     */
     private function subBytes()
     {
 
@@ -635,9 +655,10 @@ class Aes
         }
     }
 
-    /** multiplies two polynomials a(x), b(x) in GF(2^8) modulo the irreducible polynomial m(x) = x^8+x^4+x^3+x+1
-    *   @returns 8-bit value
-    **/
+    /**
+     * Multiplies two polynomials a(x), b(x) in GF(2^8) modulo the irreducible polynomial m(x) = x^8+x^4+x^3+x+1
+     * @returns 8-bit value
+     */
     private static function mult($a, $b)
     {
         $sum = self::$ltable[$a] + self::$ltable[$b];
@@ -647,9 +668,10 @@ class Aes
         return ($a == 0 ? 0 : ($b == 0 ? 0 : $sum));
     }
 
-    /** applies a cyclic permutation to a 4-byte word.
-    *   @returns 32-bit int
-    **/
+    /**
+     * Applies a cyclic permutation to a 4-byte word.
+     * @returns 32-bit int
+     */
     private static function rotWord($w)
     {
         $temp = $w >> 24; // put the first 8-bits into temp
@@ -662,9 +684,10 @@ class Aes
         return $w;
     }
 
-    /** applies S-box substitution to each byte of a 4-byte word.
-    *   @returns 32-bit int
-    **/
+    /**
+     * Applies S-box substitution to each byte of a 4-byte word.
+     * @returns 32-bit int
+     */
     private static function subWord($w)
     {
         $temp = 0;
@@ -683,9 +706,10 @@ class Aes
         return $w;
     }
 
-    /** reduces a 64-bit word to a 32-bit word
-    *   @returns void
-    **/
+    /**
+     * Reduces a 64-bit word to a 32-bit word
+     * @returns void
+     */
     private static function make32BitWord(&$w)
     {
         // Reduce this 64-bit word to 32-bits on 64-bit machines
