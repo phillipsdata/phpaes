@@ -15,7 +15,8 @@ class AesTest extends PHPUnit_Framework_TestCase
      * @expectedExceptionMessage The initialization vector must be 128 bits (or 16 characters) long.
      * @covers ::__construct
      */
-    public function testConstructIvLengthException() {
+    public function testConstructIvLengthException()
+    {
         new Aes('abcdef0123456789', 'CBC');
     }
 
@@ -24,7 +25,8 @@ class AesTest extends PHPUnit_Framework_TestCase
      * @expectedExceptionMessage Key is 120 bits long. *not* 128, 192, or 256.
      * @covers ::__construct
      */
-    public function testConstructZlengthException() {
+    public function testConstructZlengthException()
+    {
         new Aes('abcdef012345678');
     }
 }
