@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/phillipsdata/phpaes.svg?branch=master)](https://travis-ci.org/phillipsdata/phpaes)
 
-FIPS-192 compliant AES cipher. 
+FIPS-192 compliant AES cipher.
 
 ### Supported key lengths:
 - 128 bits
@@ -41,4 +41,20 @@ $x = $aes->decrypt($y);
 
 echo base64_encode($y);
 echo $x;
+```
+
+## Static Code Analysis
+
+### Running Tests
+
+```sh
+vendor/bin/phpunit
+```
+
+### Code Style
+
+This project adheres to PSR-2 formatting.
+
+```sh
+vendor/bin/phpcs --extensions=php --report=summary --standard=PSR2 ./src ./tests
 ```
